@@ -17,8 +17,20 @@ class inputInfo{
         const Float_t TPC_yf = 117.47 - fidvol;
         const Float_t TPC_zi = 0.1 + fidvol;
         const Float_t TPC_zf = 1036.9 - fidvol;
+
+        TVector3 v_targ_uboone;
+        TVector3 v_targ_uboone_dir;
+
+        inputInfo(); // initialiser
         
 };
+
+inputInfo::inputInfo(){
+
+    v_targ_uboone = {-31387.58422, -3316.402543, -60100.2414};
+    v_targ_uboone_dir = v_targ_uboone.Unit();
+
+}
 
 // -------------------------------------------------- //
 // ----- Functions that I wrote for my analysis ----- //
@@ -29,6 +41,13 @@ class readingCodes{
     inputInfo info;
 
     public:
+
+        double costheta_wrt_beam(TVector3 vec){
+            TVector3 vec_dir = vec.Unit();
+            return vec.Dot(info.v_targ_uboone_dir);
+        }
+
+        // --------------------------------------------------
 
         void makeDirectory(string dirname){
             gSystem->Exec(Form("if [ ! -d \"%s\" ]; then echo \"\n%s folder does not exist... creating\"; mkdir -p %s; fi",dirname.c_str(),dirname.c_str(),dirname.c_str()));
