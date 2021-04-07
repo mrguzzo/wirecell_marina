@@ -2,54 +2,54 @@ struct PFevalInfo{
   bool flag_NCDelta;
   bool flag_showerMomentum;
   
-  Int_t run;
-  Int_t subrun;
-  Int_t event;
+  Int_t run;                                  // run
+  Int_t subrun;                               // subrun
+  Int_t event;                                // event 
   Int_t neutrino_type;
-  Float_t reco_nuvtxX;
-  Float_t reco_nuvtxY;
-  Float_t reco_nuvtxZ;
-  Float_t reco_showervtxX;
-  Float_t reco_showervtxY;
-  Float_t reco_showervtxZ;
-  Float_t reco_showerKE;
-  Float_t reco_muonvtxX;
-  Float_t reco_muonvtxY;
-  Float_t reco_muonvtxZ;
-  Float_t reco_muonMomentum[4];
-  Float_t reco_showerMomentum[4];
+  Float_t reco_nuvtxX;                        // reco neutrino vertex X
+  Float_t reco_nuvtxY;                        // reco neutrino vertex Y
+  Float_t reco_nuvtxZ;                        // reco neutrino vertex Z
+  Float_t reco_showervtxX;                    // reco shower vertex X
+  Float_t reco_showervtxY;                    // reco shower vertex Y
+  Float_t reco_showervtxZ;                    // reco shower vertex Z
+  Float_t reco_showerKE;                      // reco shower kinetic energy [MeV]
+  Float_t reco_muonvtxX;                      // reco muon vertex X
+  Float_t reco_muonvtxY;                      // reco muon vertex Y
+  Float_t reco_muonvtxZ;                      // reco muon vertex Z
+  Float_t reco_muonMomentum[4];               // reco muon momenta 0=X, 1=Y, 2=Z, 3=time
+  Float_t reco_showerMomentum[4];             // reco shower momenta 0=X, 1=Y, 2=Z, 3=time
   
   
-  Float_t nuvtx_diff;
-  Float_t showervtx_diff;
-  Float_t muonvtx_diff;
-  Float_t truth_showerMomentum[4];             // 0=X, 1=Y, 2=Z, 4=time
-  Float_t truth_corr_nuvtxX;
-  Float_t truth_corr_nuvtxY;
-  Float_t truth_corr_nuvtxZ;
-  Float_t truth_corr_showervtxX;
-  Float_t truth_corr_showervtxY;
-  Float_t truth_corr_showervtxZ;
-  Float_t truth_showerKE;
-  Float_t truth_corr_muonvtxX;
-  Float_t truth_corr_muonvtxY;
-  Float_t truth_corr_muonvtxZ;
-  Float_t truth_muonvtxX;
-  Float_t truth_muonvtxY;
-  Float_t truth_muonvtxZ;
-  Float_t truth_muonendX;
-  Float_t truth_muonendY;
-  Float_t truth_muonendZ;
-  Float_t truth_muonMomentum[4];
-  Float_t truth_nuEnergy;
-  Float_t truth_energyInside;
-  Float_t truth_electronInside;
-  Int_t truth_nuPdg;
-  Bool_t truth_isCC;
-  Float_t truth_vtxX;
-  Float_t truth_vtxY;
-  Float_t truth_vtxZ;
-  Float_t truth_nuTime;
+  Float_t nuvtx_diff;                         // truth-reco neutrino vertex distance
+  Float_t showervtx_diff;                     // truth-reco shower vertex distance
+  Float_t muonvtx_diff;                       // truth-reco muon vertex distance
+  Float_t truth_showerMomentum[4];            // truth shower momenta 0=X, 1=Y, 2=Z, 4=time
+  Float_t truth_corr_nuvtxX;                  // truth sce neutrino vertex X
+  Float_t truth_corr_nuvtxY;                  // truth sce neutrino vertex Y
+  Float_t truth_corr_nuvtxZ;                  // truth sce neutrino vertex Z
+  Float_t truth_corr_showervtxX;              // truth sce shower vertex X
+  Float_t truth_corr_showervtxY;              // truth sce shower vertex Y
+  Float_t truth_corr_showervtxZ;              // truth sce shower vertex Z
+  Float_t truth_showerKE;                     // truth shower kinetic energy
+  Float_t truth_corr_muonvtxX;                // truth sce muon vertex X
+  Float_t truth_corr_muonvtxY;                // truth sce muon vertex Y
+  Float_t truth_corr_muonvtxZ;                // truth sce muon vertex Z
+  Float_t truth_muonvtxX;                     // truth muon vertex X
+  Float_t truth_muonvtxY;                     // truth muon vertex Y
+  Float_t truth_muonvtxZ;                     // truth muon vertex Z
+  Float_t truth_muonendX;                     // truth muon end X
+  Float_t truth_muonendY;                     // truth muon end Y
+  Float_t truth_muonendZ;                     // truth muon end Z
+  Float_t truth_muonMomentum[4];              // truth muon momenta 0=X, 1=Y, 2=Z, 3=time
+  Float_t truth_nuEnergy;                     // truth neutrino energy [MeV]
+  Float_t truth_energyInside;                 
+  Float_t truth_electronInside;               
+  Int_t truth_nuPdg;                          // truth neutrino pdg
+  Bool_t truth_isCC;                          // truth = CC, false = NC
+  Float_t truth_vtxX;                         // truth neutrino vertex X
+  Float_t truth_vtxY;                         // truth neutrino vertex Y
+  Float_t truth_vtxZ;                         // truth neutrino vertex Z
+  Float_t truth_nuTime;                       // truth neutrino interaction time [units=??]
   Int_t truth_nuIntType;
 
   //

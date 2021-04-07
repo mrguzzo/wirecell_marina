@@ -1,17 +1,23 @@
 #include "/home/marinaguzzo/Desktop/wirecell_marina/includes/FUNCTIONS.h"
 
-void draw_1d_histogram(TCanvas* c1, TH1F* hist, string xlabel, string ylabel, int line_color, string draw_mode){
+void draw_1d_histogram(TCanvas* c1, TH1F* hist, string xlabel, string ylabel, string filename, bool apply_area_normalisation){
 
     c1->cd();
 
     hist->GetXaxis()->SetTitle(xlabel.c_str());
     hist->GetYaxis()->SetTitle(ylabel.c_str());
 
-    hist->SetLineColor(line_color);
+    if( apply_area_normalisation ) hist->Scale(1/hist->GetEntries());
+
+    hist->SetMarkerStyle(8);
+    hist->SetMarkerColor(kPink);
+    hist->Draw("P");
+
+    c1->SaveAs(filename.c_str());
 
 }
 
-void calculate_distance(){
+void calculating_distance(){
     
     // --------------------------- //
     // ----- declare classes ----- //
@@ -20,6 +26,8 @@ void calculate_distance(){
     readingCodes read;
     wireCellFunctions wcfunc;
     inputInfo info;
+
+    read.makeDirectory("plots");
 
     // -------------------------- //
     // ----- selection cuts ----- //
@@ -52,7 +60,7 @@ void calculate_distance(){
     int neutron=0, muon=0, kaon=0, pion=0, proton=0, photon=0, electron=0;
 
     enum {k_neutron, k_muon, k_kaon, k_pion, k_proton, k_photon, k_electron, k_MAX_particleID};
-    std::vector<TH1F*> h_nue_particles;         h_nue_particles.resize(k_MAX_particleID); 
+    std::vector<TH1F*> h_nue_particles;         h_nue_particles.resize(k_MAX_particleID);
     for(unsigned int n=0; n<k_MAX_particleID; n++){
         h_nue_particles.at(n) = new TH1F(Form("particle_multiplicity_nue_%u",n),"",10,0,10);
     }
@@ -112,20 +120,29 @@ void calculate_distance(){
                     TVector3 truth_pos(pfdump_info.truth_startXYZT[m][0], pfdump_info.truth_startXYZT[m][1], pfdump_info.truth_startXYZT[m][2]);
                     TVector3 reco_pos(pfdump_info.reco_startXYZT[m][0], pfdump_info.reco_startXYZT[m][1], pfdump_info.reco_startXYZT[m][2]);
 
-                    std::cout << "event=" << n << "   electron_multiplicity=" << electron << "  truth_dist=" << (truth_pos-truth_nuvtx).Mag() << "   reco_dist=" << (reco_pos-reco_nuvtx).Mag() << std::endl;
-                    if( pfeval_info.truth_isCC ) std::cout << "the event number " << n << " is CC.\n";
+                    std::cout << "evt=" << n << " run=" << pfeval_info.run << " subrun=" << pfeval_info.subrun << "   electron_multiplicity=" << electron << "  truth_dist=" << (truth_pos-truth_nuvtx).Mag() << "   reco_dist=" << (reco_pos-reco_nuvtx).Mag() << std::endl;
                 
                 }
             }
+
+            std::cout << std::endl;
         }
 
     } // loop over entries
 
+    // --------------------------- //
+    // ----- draw histograms ----- //
+    // --------------------------- //
+
     TCanvas *c1 = new TCanvas();
 
-    // draw_1d_histogram(TCanvas* c1, TH1F* hist, string xlabel, string ylabel, int line_color, string draw_mode)
-
-    draw_1d_histogram(c1, h_nue_particles.at(k_neutron), "Number of Neutrons", )
+    draw_1d_histogram(c1, h_nue_particles.at(k_neutron), "Number of Neutrons", "Entries / bin", "plots/multiplicity_neutron.pdf", true);
+    draw_1d_histogram(c1, h_nue_particles.at(k_muon), "Number of Muons", "Entries / bin", "plots/multiplicity_muon.pdf", true);
+    draw_1d_histogram(c1, h_nue_particles.at(k_kaon), "Number of Kaons", "Entries / bin", "plots/multiplicity_kaon.pdf", true);
+    draw_1d_histogram(c1, h_nue_particles.at(k_pion), "Number of Pions", "Entries / bin", "plots/multiplicity_pion.pdf", true);
+    draw_1d_histogram(c1, h_nue_particles.at(k_proton), "Number of Protons", "Entries / bin", "plots/multiplicity_proton.pdf", true);
+    draw_1d_histogram(c1, h_nue_particles.at(k_photon), "Number of Photon", "Entries / bin", "plots/multiplicity_photon.pdf", true);
+    draw_1d_histogram(c1, h_nue_particles.at(k_electron), "Number of Electrons", "Entries / bin", "plots/multiplicity_electron.pdf", true);
 
 
 }
