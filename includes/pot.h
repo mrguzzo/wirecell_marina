@@ -1,4 +1,4 @@
-
+/* --------------------------------------- */
 struct POTInfo {
   Int_t runNo;
   Int_t subRunNo;
@@ -9,6 +9,8 @@ struct POTInfo {
 
 }; // POTInfo                                                                                                       
 
+
+/* --------------------------------------- */
 void loadPOTInfo(TChain* tree0, POTInfo& pot_info) {
   tree0->SetBranchAddress("runNo",&pot_info.runNo);
   tree0->SetBranchAddress("subRunNo", &pot_info.subRunNo);
