@@ -12,6 +12,7 @@
 #include "TRatioPlot.h"
 #include "TLatex.h"
 #include <iostream>
+#include <cmath>
 
 // CHECKOUT
 #include "pot.h"

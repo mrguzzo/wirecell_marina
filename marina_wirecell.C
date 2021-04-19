@@ -1,4 +1,4 @@
-#include "/home/marinaguzzo/Desktop/numi_checkout/includes/MYLIBRARY.h"
+#include "/home/marinaguzzo/Desktop/wirecell_marina/includes/MYLIBRARY.h"
 
 
 void marina_wirecell(){
@@ -147,11 +147,14 @@ void marina_wirecell(){
         else if( pfeval_info.truth_nuPdg == 12 ) nu_type = k_nue;
         else if( pfeval_info.truth_nuPdg == -12 ) nu_type = k_nuebar;
 
-        if(nu_type==k_nue || nu_type==k_nuebar || nu_type==k_numu || nu_type==k_numubar){
-            if(eval_info.match_isFC == 1) h_energy_true[k_fc][nu_type]->Fill(pfeval_info.truth_nuEnergy,1);
-            else if(eval_info.match_isFC == 0) h_energy_true[k_pc][nu_type]->Fill(pfeval_info.truth_nuEnergy,eval_info.weight_cv);
+        if(nu_type==k_numu || nu_type==k_numubar){
 
-            //if(nu_type==k_nue && eval_info.match_isFC == 1) std::cout << "yes\n";
+            if( !isnan(eval_info.weight_cv) && !isinf(eval_info.weight_cv) ){
+
+                if(eval_info.match_isFC == 1) h_energy_true[k_fc][nu_type]->Fill(pfeval_info.truth_nuEnergy,eval_info.weight_cv);
+                else if(eval_info.match_isFC == 0) h_energy_true[k_pc][nu_type]->Fill(pfeval_info.truth_nuEnergy,eval_info.weight_cv);
+
+            }
         }
 
     } // overlay loop
@@ -208,6 +211,24 @@ void marina_wirecell(){
 
         if (top > -1) fillStackedHists(eval_info_nue, tagger_info_nue, kine_info_nue, top, wNue*genie_weight);
 
+        // ------------------------- //
+        //      ENERGY SPECTRUM      //
+        // ------------------------- //
+
+        int nu_type;
+        if (isNueCC) nu_type = k_nue;
+        else if (isNueBarCC) nu_type = k_nuebar;
+
+        if (nu_type==k_nue || nu_type==k_nuebar){
+
+            if( !isnan(eval_info_nue.weight_cv) && !isinf(eval_info_nue.weight_cv) ){
+
+                if(eval_info_nue.match_isFC == 1) h_energy_true[k_fc][nu_type]->Fill(pfeval_info_nue.truth_nuEnergy,eval_info_nue.weight_cv);
+                else if(eval_info_nue.match_isFC == 0) h_energy_true[k_pc][nu_type]->Fill(pfeval_info_nue.truth_nuEnergy,eval_info.weight_cv);
+
+            }
+        }
+
     } // intrinsic nue loop 
 
     // ==================================================================================== //
@@ -255,12 +276,7 @@ void marina_wirecell(){
         fillStackedHists(eval_info_data, tagger_info_data, kine_info_data, data, wData);
 
     } // DATA loop  
-
-
+    
     drawAllHists();
-
-    TCanvas *c3 = new TCanvas();
-    c3->cd();
-    h_energy_true[k_fc][k_numu]->Draw("hist");
 
 }

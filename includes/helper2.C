@@ -210,6 +210,10 @@ void drawAllHists(){
 
   // --- energy spectrum
   compare_2_1dhistograms(c2, h_energy_true[k_fc][k_nue],h_energy_true[k_fc][k_nuebar],"True Neutrino Energy [MeV]","Entries / Bin","plots/nuEnergySpectrum_nue_nuebar_FC.pdf",false,"#nu_{e}","#bar{#nu}_{e}");
+  compare_2_1dhistograms(c2, h_energy_true[k_pc][k_nue],h_energy_true[k_pc][k_nuebar],"True Neutrino Energy [MeV]","Entries / Bin","plots/nuEnergySpectrum_nue_nuebar_PC.pdf",false,"#nu_{e}","#bar{#nu}_{e}");
+  compare_2_1dhistograms(c2, h_energy_true[k_fc][k_numu],h_energy_true[k_fc][k_numubar],"True Neutrino Energy [MeV]","Entries / Bin","plots/nuEnergySpectrum_numu_numubar_FC.pdf",false,"#nu_{#mu}","#bar{#nu}_{#mu}");
+  compare_2_1dhistograms(c2, h_energy_true[k_pc][k_numu],h_energy_true[k_pc][k_numubar],"True Neutrino Energy [MeV]","Entries / Bin","plots/nuEnergySpectrum_numu_numubar_PC.pdf",false,"#nu_{#mu}","#bar{#nu}_{#mu}");
+  
 }
 /* --------------------------------------- */
 
